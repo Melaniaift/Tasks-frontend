@@ -1,0 +1,32 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.board-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.droppable {
+    flex: 1;
+    min-height: 200px;
+    max-height: 100%;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+.draggable {
+    max-width: 100px;
+    height: 100px;
+    cursor: grab;
+}
