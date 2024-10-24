@@ -1,0 +1,26 @@
+.card-style {
+    max-width: 200px;
+    max-height: 200px;
+    cursor: grab;
+    margin-bottom: 10px;
+}
+
+.card-container {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+}
+
+.delete-button {
+    display: block;
+    width: 100%;
+    margin: -10px auto 0;
+    position: relative;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+}
+
+
+
+
+

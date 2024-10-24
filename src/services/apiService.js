@@ -73,7 +73,6 @@ async function makeRequest(methodType, query, query2) {
             throw new Error(`Failed to fetch data from `);
         }
         const data = await response.json();
-        console.error(data)
         return data;
     } catch (error) {
         throw error;

@@ -1,0 +1,26 @@
+.default-style {
+    flex: 1;
+    min-height: 200px;
+    max-height: 100%;
+    border: 1px solid rgb(17 24 39);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    width: 300px;
+    background-color: rgb(55 65 81);
+}
+
+.column-title {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.column-content {
+    padding: 10px;
+    justify-content: center;
+    align-items: left;
+}

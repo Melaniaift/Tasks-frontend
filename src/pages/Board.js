@@ -1,48 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DndContext } from '@dnd-kit/core';
-import { Draggable } from '../components/index';
 import { Droppable } from '../components/index';
 import './board.css'
 import { getAllTasks } from '../services/apiService';
 
 export const Board = () => {
 
-    const tasks = initializeTasks();
-    const containers = ['A', 'B', 'C'];
-    const [parent, setParent] = useState(null);
-    const draggableMarkup = (
-        <Draggable id="draggable" className="draggable">Drag me</Draggable>
-    );
+    const [tasks, setTasks] = useState([]);
+    const allowedStatuses = ['new', 'progress', 'testing', 'done'];
+
+    useEffect(() => {
+        initializeTasks();
+    }, []);
 
     async function initializeTasks() {
         try {
-            const tasks = await getAllTasks();
+            const fetchedTasks = await getAllTasks();
+            setTasks(fetchedTasks);
         } catch (error) {
             console.error('Error fetching tasks:', error);
         }
     }
 
     function handleDragEnd(event) {
-        const { over } = event;
+        const { over, active } = event;
+        console.error(event)
+        if (over) {
+            // Find the dragged item
+            const draggedTaskId = active.id;
+            const newStatus = over.id; // The ID of the container it's dropped on
 
-        // If the item is dropped over a container, set it as the parent
-        // otherwise reset the parent to `null`
-        setParent(over ? over.id : null);
+            // Update the task's status
+            setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                    task.id === draggedTaskId
+                        ? { ...task, status: newStatus } // Update status
+                        : task
+                )
+            );
+        }
     }
 
     return (
         <DndContext onDragEnd={handleDragEnd}>
             <div className="board-container">
-                <div>
-                    {parent === null ? draggableMarkup : null}
-                </div>
-                {containers.map((id) => (
-                    <Droppable key={id} id={id} className="droppable">
-                        {parent === id ? draggableMarkup : 'Drop here'}
+                {allowedStatuses.map((status) => (
+                    <Droppable key={status} id={status} tasks={tasks}>
                     </Droppable>
                 ))}
             </div>
-
         </DndContext>
     );
 }
