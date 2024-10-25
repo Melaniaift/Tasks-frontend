@@ -17,7 +17,11 @@ export const TaskModal = ({ isOpen, onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTask(taskData)
+        addTask(taskData);
+        setTaskData({
+            name: '',
+            description: ''
+        })
         onClose();
     };
 

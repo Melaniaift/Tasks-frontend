@@ -50,7 +50,7 @@ async function makeRequest(methodType, query, query2) {
                     accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(query)
+                body: JSON.stringify({ status: query })
             };
             url = `${API_BASE_URL}/${query2}/status`;
             break;

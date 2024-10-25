@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Droppable } from '../components/index';
 import './board.css'
-import { getAllTasks } from '../services/apiService';
+import { getAllTasks, editTaskStatus } from '../services/apiService';
 
 export const Board = () => {
 
@@ -24,20 +24,16 @@ export const Board = () => {
 
     function handleDragEnd(event) {
         const { over, active } = event;
-        console.error(event)
         if (over) {
-            // Find the dragged item
             const draggedTaskId = active.id;
-            const newStatus = over.id; // The ID of the container it's dropped on
+            const columnStatus = over.id;
 
-            // Update the task's status
-            setTasks((prevTasks) =>
-                prevTasks.map((task) =>
-                    task.id === draggedTaskId
-                        ? { ...task, status: newStatus } // Update status
-                        : task
-                )
-            );
+            tasks.map((task) => {
+                if (task._id === draggedTaskId) {
+                    editTaskStatus(columnStatus, draggedTaskId)
+                    initializeTasks()
+                }
+            })
         }
     }
 
