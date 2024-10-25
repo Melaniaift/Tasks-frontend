@@ -21,9 +21,7 @@ export const Droppable = (column) => {
                 {column.tasks
                     .filter((task) => task.status === column.id)
                     .map((task) => (
-                        <Draggable key={task._id} id={task._id} task={task}>
-                            {task}
-                        </Draggable>
+                        <Draggable key={task._id} id={task._id} task={task} />
                     ))}
             </div>
         </div>

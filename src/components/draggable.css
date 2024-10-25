@@ -9,6 +9,7 @@
     display: inline-block;
     position: relative;
     width: 200px;
+
 }
 
 .delete-button {
@@ -20,7 +21,14 @@
     border-radius: 0 0 8px 8px;
 }
 
+.card-style.dragging {
+    position: absolute; /* or try fixed if absolute doesn’t work */
+    z-index: 1;
+    opacity: 0.9;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: grabbing;
+}
 
-
-
-
+.hide{
+    display: none;
+}
