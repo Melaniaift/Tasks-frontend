@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { closestCenter, DndContext, DragOverlay, rectIntersection } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core';
 import { Droppable, Draggable } from '../components/index';
 import './board.css'
 import { getAllTasks, editTaskStatus } from '../services/apiService';
