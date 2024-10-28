@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DndContext, DragOverlay } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragOverlay, rectIntersection } from '@dnd-kit/core';
 import { Droppable, Draggable } from '../components/index';
 import './board.css'
 import { getAllTasks, editTaskStatus } from '../services/apiService';
@@ -31,25 +31,27 @@ export const Board = () => {
     }
 
     const handleDragEnd = (event) => {
-        console.error(event)
         const { over, active } = event;
-        
+
         if (over) {
             const draggedTaskId = active.id;
             const columnStatus = over.id;
 
-            tasks.forEach((task) => {
+            const updatedTasks = tasks.map(task => {
                 if (task._id === draggedTaskId) {
-                    editTaskStatus(columnStatus, draggedTaskId)
-                    initializeTasks()
+                    return { ...task, status: columnStatus };
                 }
-            })
+                return task;
+            });
+
+            setTasks(updatedTasks);
+            editTaskStatus(columnStatus, draggedTaskId)
         }
         setActiveId(null);
     }
 
     return (
-        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+        <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} collisionDetection={closestCenter}>
             <div className="board-container">
                 {allowedStatuses.map((status) => (
                     <Droppable key={status} id={status} tasks={tasks.filter(task => task._id !== activeId)}>
@@ -57,7 +59,7 @@ export const Board = () => {
                 ))}
             </div>
             <DragOverlay>
-                {activeTask ? (
+                {activeId ? (
                     <Draggable id={activeTask._id} key={activeTask._id} task={activeTask} isOverlay={true} />
                 ) : null}
             </DragOverlay>
