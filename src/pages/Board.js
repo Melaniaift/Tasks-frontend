@@ -17,7 +17,6 @@ export const Board = () => {
     }, []);
 
     const handleDragStart = (event) => {
-        console.error(event)
         setActiveId(event.active.id);
     };
 
