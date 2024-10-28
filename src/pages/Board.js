@@ -4,7 +4,7 @@ import { Droppable, Draggable } from '../components/index';
 import './board.css'
 import { getAllTasks, editTaskStatus } from '../services/apiService';
 
-export const Board = () => {
+export const Board = ({ onRefresh }) => {
 
     const [tasks, setTasks] = useState([]);
     const allowedStatuses = ['new', 'progress', 'testing', 'done'];
@@ -13,8 +13,8 @@ export const Board = () => {
     const activeTask = tasks.find(task => task._id === activeId);
 
     useEffect(() => {
-        initializeTasks();
-    }, []);
+        initializeTasks()
+    }, [onRefresh]);
 
     const handleDragStart = (event) => {
         setActiveId(event.active.id);

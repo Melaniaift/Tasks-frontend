@@ -3,11 +3,12 @@ import Image from '../assets/icon.png'
 import { TaskModal } from './TaskModal';
 import { useState } from 'react'
 
-export const Navbar = () => {
+export const Navbar = ({refresh}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
+        refresh()
     };
 
     return (<div>
