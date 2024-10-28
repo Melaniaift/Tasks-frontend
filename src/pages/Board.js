@@ -17,6 +17,7 @@ export const Board = () => {
     }, []);
 
     const handleDragStart = (event) => {
+        console.error(event)
         setActiveId(event.active.id);
     };
 
@@ -29,20 +30,22 @@ export const Board = () => {
         }
     }
 
-    function handleDragEnd(event) {
+    const handleDragEnd = (event) => {
+        console.error(event)
         const { over, active } = event;
-        setActiveId(null);
+        
         if (over) {
             const draggedTaskId = active.id;
             const columnStatus = over.id;
 
-            tasks.map((task) => {
+            tasks.forEach((task) => {
                 if (task._id === draggedTaskId) {
                     editTaskStatus(columnStatus, draggedTaskId)
                     initializeTasks()
                 }
             })
         }
+        setActiveId(null);
     }
 
     return (
