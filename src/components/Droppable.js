@@ -12,7 +12,7 @@ export const Droppable = (column) => {
 
     return (
         <div ref={setNodeRef} className="default-style bg-gray-200 border border-gray-300 dark:bg-gray-700 dark:border-gray-800">
-            <h3 className="column-title">{capitalizeFirstLetter(column.id)}</h3>
+            <h3 className="column-title dark:text-white">{capitalizeFirstLetter(column.id)}</h3>
             <div className="column-content">
                 {column.tasks
                     .filter((task) => task.status === column.id)
