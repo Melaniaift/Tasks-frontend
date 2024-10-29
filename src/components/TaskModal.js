@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { addTask } from '../services/apiService';
 export const TaskModal = ({ isOpen, onClose }) => {
 
+    const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [taskData, setTaskData] = useState({
         name: '',
         description: ''
@@ -9,20 +10,32 @@ export const TaskModal = ({ isOpen, onClose }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setTaskData({
-            ...taskData,
-            [name]: value
+        setTaskData((prevTaskData) => {
+            const updatedTaskData = {
+                ...prevTaskData,
+                [name]: value
+            };
+
+            if (!updatedTaskData.name || !updatedTaskData.description) {
+                setButtonDisabled(true);
+            } else {
+                setButtonDisabled(false);
+            }
+
+            return updatedTaskData;
         });
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        addTask(taskData);
-        setTaskData({
-            name: '',
-            description: ''
-        })
-        onClose();
+        if (!isButtonDisabled) {
+            e.preventDefault();
+            addTask(taskData);
+            setTaskData({
+                name: '',
+                description: ''
+            })
+            onClose();
+        }
     };
 
     if (!isOpen) return null;
@@ -81,7 +94,12 @@ export const TaskModal = ({ isOpen, onClose }) => {
                         </div>
                         <button
                             type="submit"
-                            className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            disabled={isButtonDisabled}
+                            className={`text-white inline-flex items-center font-medium rounded-lg text-sm px-5 py-2.5 text-center
+                                ${isButtonDisabled
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                                }`}>
                             <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd"></path></svg>
                             Add new task
                         </button>
