@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api/tasks';
+const API_BASE_URL = 'https://tasks-backend-vqth.onrender.com/api/tasks';
 
 async function makeRequest(methodType, query, query2) {
     let options, url;
