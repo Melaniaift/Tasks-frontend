@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 A simple tasks management dashboard frontend built React.
-Frontend can be accessed [here](https://tasks-checking.netlify.app)
+Frontend can be accessed [here](https://tasks-checking.netlify.app).
 Backend deployed on [Render](https://dashboard.render.com/) [here](https://tasks-backend-vqth.onrender.com/api/tasks)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
