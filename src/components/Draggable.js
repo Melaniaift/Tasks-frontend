@@ -2,7 +2,7 @@ import { useDraggable } from '@dnd-kit/core';
 import './draggable.css'
 import { deleteTask } from '../services/apiService'
 
-export const Draggable = (props) => {
+export const Draggable = (props, { onDelete }) => {
 
     const { attributes, listeners, setNodeRef, transform, } = useDraggable({
         id: props.id,
@@ -14,6 +14,7 @@ export const Draggable = (props) => {
 
     const removeTask = () => {
         deleteTask(props.id)
+        onDelete = true
     }
 
     return (

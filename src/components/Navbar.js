@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import Image from '../assets/icon.png'
+import DarkImage from '../assets/icon.png'
+import Image from '../assets/icon-light.png'
+
 import { TaskModal } from './TaskModal';
 import { useState } from 'react'
 
-export const Navbar = ({refresh}) => {
+export const Navbar = ({ refresh }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -15,7 +17,8 @@ export const Navbar = ({refresh}) => {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src={Image} className="h-8" alt="Flowbite Logo" />
+                    <img src={Image} alt="Logo" className="h-8 dark:hidden" />
+                    <img src={DarkImage} alt="Logo" className="h-8 hidden dark:block" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tasks</span>
                 </Link>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

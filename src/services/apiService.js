@@ -58,7 +58,7 @@ async function makeRequest(methodType, query, query2) {
             options = {
                 method: methodType,
                 headers: {
-                    accept: 'application/json'
+                    accept: 'text/plain'
                 },
             };
             url = `${API_BASE_URL}/${query}`;
@@ -72,7 +72,7 @@ async function makeRequest(methodType, query, query2) {
         if (!response.ok) {
             throw new Error(`Failed to fetch data from `);
         }
-        const data = await response.json();
+        const data = methodType === 'DELETE' ? await response.text() : await response.json();
         return data;
     } catch (error) {
         throw error;

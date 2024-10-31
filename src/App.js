@@ -1,5 +1,5 @@
 import './App.css';
-import { Navbar } from './components/index';
+import { Navbar, Footer } from './components/index';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Board } from './pages/index';
 import { useState } from 'react'
@@ -16,6 +16,7 @@ function App() {
     <Router>
       <Navbar refresh={refresh}/>
       <Board onRefresh={refreshTrigger} />
+      <Footer/>
     </Router>
   );
 }

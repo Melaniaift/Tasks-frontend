@@ -4,7 +4,7 @@ import { Droppable, Draggable } from '../components/index';
 import './board.css'
 import { getAllTasks, editTaskStatus } from '../services/apiService';
 
-export const Board = ({ onRefresh }) => {
+export const Board = ({ onRefresh, onDelete }) => {
 
     const [tasks, setTasks] = useState([]);
     const allowedStatuses = ['new', 'progress', 'testing', 'done'];
@@ -14,7 +14,8 @@ export const Board = ({ onRefresh }) => {
 
     useEffect(() => {
         initializeTasks()
-    }, [onRefresh]);
+        console.error('now')
+    }, [onRefresh, onDelete]);
 
     const handleDragStart = (event) => {
         setActiveId(event.active.id);
@@ -53,13 +54,13 @@ export const Board = ({ onRefresh }) => {
         <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} collisionDetection={closestCenter}>
             <div className="board-container">
                 {allowedStatuses.map((status) => (
-                    <Droppable key={status} id={status} tasks={tasks.filter(task => task._id !== activeId)}>
+                    <Droppable key={status} id={status} tasks={tasks.filter(task => task._id !== activeId)} >
                     </Droppable>
                 ))}
             </div>
             <DragOverlay>
                 {activeId ? (
-                    <Draggable id={activeTask._id} key={activeTask._id} task={activeTask} isOverlay={true} />
+                    <Draggable id={activeTask._id} key={activeTask._id} task={activeTask} isOverlay={true} onDelete={initializeTasks()}/>
                 ) : null}
             </DragOverlay>
         </DndContext>

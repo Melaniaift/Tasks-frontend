@@ -16,7 +16,7 @@ export const TaskModal = ({ isOpen, onClose }) => {
                 [name]: value
             };
 
-            if (!updatedTaskData.name || !updatedTaskData.description) {
+            if (!updatedTaskData.name.trim() || !updatedTaskData.description.trim()) {
                 setButtonDisabled(true);
             } else {
                 setButtonDisabled(false);
@@ -29,6 +29,7 @@ export const TaskModal = ({ isOpen, onClose }) => {
     const handleSubmit = (e) => {
         if (!isButtonDisabled) {
             e.preventDefault();
+            taskData.description = taskData.description.trim()
             addTask(taskData);
             setTaskData({
                 name: '',
